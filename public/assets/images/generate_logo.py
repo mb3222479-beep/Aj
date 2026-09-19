@@ -1,0 +1,162 @@
+import os
+import subprocess
+
+svg_content = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <defs>
+    <style>
+      .navy-fill { fill: #0d3356; }
+      .blue-fill { fill: #307ab4; }
+      .logo-title {
+        font-family: 'Liberation Sans', 'Montserrat', 'Arial Black', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-weight: 900;
+        fill: #0d3356;
+      }
+      .logo-subtitle {
+        font-family: 'Liberation Sans', 'Montserrat', 'Arial', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-weight: 800;
+        fill: #0d3356;
+      }
+      .logo-tagline {
+        font-family: 'Liberation Sans', 'Montserrat', 'Arial', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-weight: 700;
+        fill: #0d3356;
+      }
+    </style>
+  </defs>
+
+  <!-- Clean Pure White Background -->
+  <rect width="1000" height="1000" fill="#ffffff" />
+
+  <!-- 1. ROOF & CHIMNEY -->
+  <!-- Chimney on right roof slope -->
+  <polygon points="630,200 674,200 674,272 630,244" class="navy-fill" />
+
+  <!-- Gable Roofline -->
+  <!-- Peak at (500, 142), Left eave extends to (195, 348), Right eave extends to (805, 348) -->
+  <path d="M 195,348 
+           L 248,348 
+           L 500,186 
+           L 752,348 
+           L 805,348 
+           L 500,142 
+           Z" class="navy-fill" />
+
+  <!-- 2. FOUR-PANE WINDOW (Centered directly under roof peak) -->
+  <g class="navy-fill">
+    <rect x="470" y="222" width="27" height="27" rx="1.5" />
+    <rect x="503" y="222" width="27" height="27" rx="1.5" />
+    <rect x="470" y="255" width="27" height="27" rx="1.5" />
+    <rect x="503" y="255" width="27" height="27" rx="1.5" />
+  </g>
+
+  <!-- 3. LETTER 'A' (Architectural Slate Blue) -->
+  <path d="M 395,270 
+           L 418,270 
+           L 538,560 
+           L 468,560 
+           L 435,480 
+           L 315,480 
+           L 282,560 
+           L 142,560 
+           Z 
+           M 375,340 
+           L 330,440 
+           L 420,440 
+           Z" class="blue-fill" />
+
+  <!-- 4. AMPERSAND '&' (Deep Navy) -->
+  <!-- Perfectly placed between right leg of A and hammer stem of J -->
+  <path d="M 578,446 
+           C 578,432 570,422 556,422 
+           C 544,422 536,430 536,442 
+           C 536,456 546,468 565,484 
+           L 582,498 
+           C 594,508 604,522 604,540 
+           C 604,565 582,582 552,582 
+           C 525,582 505,568 498,546 
+           L 528,536 
+           C 532,548 541,556 553,556 
+           C 566,556 574,548 574,537 
+           C 574,525 566,516 550,502 
+           L 535,488 
+           C 518,472 508,458 508,438 
+           C 508,414 528,396 556,396 
+           C 584,396 604,414 606,442 
+           Z" class="navy-fill" />
+
+  <!-- 5. LETTER 'J' WITH INTEGRATED CLAW HAMMER HEAD (Architectural Slate Blue) -->
+  <!-- Top forms a claw hammer: claw reaching left over '&', striking face to the right, handle becomes J stem and hook -->
+  <path d="M 536,354 
+           C 555,346 580,342 612,342 
+           C 624,330 644,318 672,312 
+           L 758,342 
+           L 744,396 
+           L 688,384 
+           L 688,465 
+           C 688,528 656,568 592,568 
+           C 564,568 542,556 532,542 
+           L 572,496 
+           C 578,504 588,512 604,512 
+           C 625,512 632,496 632,468 
+           L 632,374 
+           C 606,374 580,384 562,408 
+           Z" class="blue-fill" />
+
+  <!-- 6. 'REMODELING' (Heavyweight Deep Navy Heading) -->
+  <text x="500" y="668" text-anchor="middle" class="logo-title" font-size="112" letter-spacing="2">REMODELING</text>
+
+  <!-- 7. '— SERVICES CONTRACTORS —' (Framed with horizontal rules) -->
+  <g>
+    <!-- Left horizontal rule -->
+    <rect x="52" y="711" width="80" height="6" class="navy-fill" rx="2" />
+    <!-- Center text -->
+    <text x="500" y="725" text-anchor="middle" class="logo-subtitle" font-size="44" letter-spacing="4">SERVICES CONTRACTORS</text>
+    <!-- Right horizontal rule -->
+    <rect x="868" y="711" width="80" height="6" class="navy-fill" rx="2" />
+  </g>
+
+  <!-- 8. 'BUILD • RENOVATE • IMPROVE' (Tracked out tagline) -->
+  <text x="500" y="788" text-anchor="middle" class="logo-tagline" font-size="28" letter-spacing="7">BUILD  •  RENOVATE  •  IMPROVE</text>
+</svg>
+'''
+
+# Save the full official logo
+os.makedirs("public/assets/images", exist_ok=True)
+with open("public/assets/images/aj-remodeling-logo.svg", "w") as f:
+    f.write(svg_content)
+
+# Also create the compact/favicon version (focusing on the iconic roof + A&J hammer + window)
+favicon_svg = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="64" fill="#ffffff" />
+  
+  <g transform="translate(0, -20) scale(0.62) translate(160, 100)">
+    <!-- Chimney -->
+    <polygon points="630,200 674,200 674,272 630,244" fill="#0d3356" />
+
+    <!-- Roof -->
+    <path d="M 195,348 L 248,348 L 500,186 L 752,348 L 805,348 L 500,142 Z" fill="#0d3356" />
+
+    <!-- Window -->
+    <g fill="#0d3356">
+      <rect x="470" y="222" width="27" height="27" rx="1.5" />
+      <rect x="503" y="222" width="27" height="27" rx="1.5" />
+      <rect x="470" y="255" width="27" height="27" rx="1.5" />
+      <rect x="503" y="255" width="27" height="27" rx="1.5" />
+    </g>
+
+    <!-- 'A' -->
+    <path d="M 395,270 L 418,270 L 538,560 L 468,560 L 435,480 L 315,480 L 282,560 L 142,560 Z M 375,340 L 330,440 L 420,440 Z" fill="#307ab4" />
+
+    <!-- '&' -->
+    <path d="M 578,446 C 578,432 570,422 556,422 C 544,422 536,430 536,442 C 536,456 546,468 565,484 L 582,498 C 594,508 604,522 604,540 C 604,565 582,582 552,582 C 525,582 505,568 498,546 L 528,536 C 532,548 541,556 553,556 C 566,556 574,548 574,537 C 574,525 566,516 550,502 L 535,488 C 518,472 508,458 508,438 C 508,414 528,396 556,396 C 584,396 604,414 606,442 Z" fill="#0d3356" />
+
+    <!-- 'J' with Hammer -->
+    <path d="M 536,354 C 555,346 580,342 612,342 C 624,330 644,318 672,312 L 758,342 L 744,396 L 688,384 L 688,465 C 688,528 656,568 592,568 C 564,568 542,556 532,542 L 572,496 C 578,504 588,512 604,512 C 625,512 632,496 632,468 L 632,374 C 606,374 580,384 562,408 Z" fill="#307ab4" />
+  </g>
+</svg>
+'''
+
+with open("public/favicon.svg", "w") as f:
+    f.write(favicon_svg)
+
+print("SVGs written successfully.")

@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --brand-primary: #0d3356;
+    --brand-primary-dark: #081d33;
+    --brand-primary-hover: #154370;
+    --brand-secondary: #307ab4;
+    --brand-secondary-hover: #246599;
+    --brand-accent: #4ea5dc;
+    --brand-dark: #081d33;
+    --brand-text-dark: #132537;
+    --brand-text-body: #3c4f62;
+    --brand-text-muted: #647b91;
+    --brand-surface: #f4f8fc;
+    --brand-surface-subtle: #ebf3f9;
+    --brand-border: #d4e4f2;
+  }
+
+  body {
+    color: #132537;
+    background-color: #ffffff;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    background-color: #307ab4;
+    color: #ffffff;
+  }
+}
