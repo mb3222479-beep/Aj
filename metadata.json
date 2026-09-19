@@ -1,0 +1,6 @@
+{
+  "name": "A&J Remodeling Contracting Services",
+  "description": "Professional residential remodeling and renovation contractor serving North Carolina and surrounding areas. Kitchens, bathrooms, additions, whole-home renovations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
